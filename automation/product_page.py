@@ -36,7 +36,7 @@ class ProductPage:
             return found_products
 
         except TimeoutError:
-            print("❌ Inventory container not found (timeout).")
+            print("Inventory container not found (timeout).")
         except Exception as e:
-            print(f"❌ Error searching products: {e}")
+            print(f"Error searching products: {e}")
         return []

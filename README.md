@@ -68,5 +68,23 @@ It’s packaged as a web API so anyone can trigger the automation remotely via H
     ```bash
    http://127.0.0.1:8000/docs
     ```
-   
 
+
+## Deployed Service
+
+### URL: https://playscraper.onrender.com/docs
+
+
+## Example API Request
+
+Endpoint: POST /run-task
+Test data (use this exact JSON in Swagger / curl / Postman):
+```bash
+{
+  "url": "https://www.saucedemo.com/",
+  "username": "standard_user",
+  "password": "secret_sauce",
+  "product": "bike",
+  "debug": false
+}
+```
