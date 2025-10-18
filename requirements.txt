@@ -1,0 +1,4 @@
+playwright==1.55.0
+rapidfuzz==3.14.1
+fastapi==0.119.0
+uvicorn==0.38.0
