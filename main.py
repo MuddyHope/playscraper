@@ -3,6 +3,7 @@ from automation.browser_management import BrowserManager
 from automation.login_page import LoginPage
 from automation.product_page import ProductPage
 import config
+from utils.logger import logger
 
 def main():
     parser = argparse.ArgumentParser(description="Automate product search task")
@@ -13,16 +14,16 @@ def main():
     with BrowserManager(headless=False) as page:
         login = LoginPage(page)
         if not login.login(config.BASE_URL, config.USERNAME, config.PASSWORD):
-            print("Login failed")
+            logger.error("Login failed")
             return
 
         product = ProductPage(page)
         names_prices = product.search_product(args.product, args.match)
         if names_prices:
-            print("Task completed successfully!")
-            print(names_prices)
+            logger.info("Task completed successfully!")
+            logger.info(names_prices)
         else:
-            print("Task failed — product not found.")
+            logger.error("Task failed — product not found.")
 
 if __name__ == "__main__":
     main()

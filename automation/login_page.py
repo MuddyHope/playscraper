@@ -1,4 +1,5 @@
 from playwright.sync_api import Page, TimeoutError
+from utils.logger import logger
 
 class LoginPage:
     def __init__(self, page: Page):
@@ -11,11 +12,11 @@ class LoginPage:
             self.page.fill("#password", password)
             self.page.click("#login-button")
             self.page.wait_for_selector("#shopping_cart_container", timeout=10000)
-            print("✅ Login successful")
+            logger.info("Login successful")
         except TimeoutError:
-            print("❌ Login failed: Timeout while logging in")
+            logger.error("Login failed: Timeout while logging in")
             return False
         except Exception as e:
-            print(f"❌ Login error: {e}")
+            logger.error(f"Login error: {e}")
             return False
         return True

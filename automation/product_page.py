@@ -1,5 +1,6 @@
 from playwright.sync_api import Page, TimeoutError
 from rapidfuzz import fuzz
+from utils.logger import logger
 
 
 class ProductPage:
@@ -9,7 +10,6 @@ class ProductPage:
     def is_match(self, name: str, keyword: str, threshold: int = 80):
         """Return True if product name matches any keyword fuzzily."""
         _curr_ration = fuzz.partial_ratio(name.lower(), keyword.lower())
-        print(f"name: {name}, keyword: {keyword}, ratio: {_curr_ration}")
         if _curr_ration >= float(threshold):
             return True
         return False
@@ -28,15 +28,14 @@ class ProductPage:
                 price = product.query_selector(".inventory_item_price").inner_text()
 
                 if self.is_match(name, keywords, ratio):
-                    print(f"Matched: {name} at {price}")
-                    found_products.append((name, price))
+                    found_products.append({name: price})
 
             if not found_products:
-                print("No matching products found.")
+                logger.info("No matching products found.")
             return found_products
 
         except TimeoutError:
-            print("❌ Inventory container not found (timeout).")
+            logger.debug("Inventory container not found (timeout).")
         except Exception as e:
-            print(f"❌ Error searching products: {e}")
+            logger.error(f"Error searching products: {e}")
         return []
