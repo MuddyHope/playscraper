@@ -20,6 +20,7 @@ def run_task(request: AutomationRequest):
     """Trigger the automation task via API"""
     try:
         with BrowserManager(headless=True) as page:
+
             if request.login:
                 login = LoginPage(page)
                 if not login.login(request.url, request.username, request.password):
